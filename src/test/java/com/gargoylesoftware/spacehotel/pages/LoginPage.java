@@ -1,4 +1,4 @@
-package com.gargoylesoftware.spacehotel;
+package com.gargoylesoftware.spacehotel.pages;
 
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.*;
