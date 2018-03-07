@@ -15,23 +15,26 @@ import java.lang.reflect.InvocationTargetException;
 public abstract class AbstractStepDefinition {
 
 	public <T extends PageObject> void navigateTo(Class<T> clazz, Consumer<T> consumer) {
-		final T object = newObject(clazz);
+		final T object = (T)newObject(clazz);
 		final WebDriver driver = Hooks.driver;
 
 		driver.get(object.getPageUrl());
+		
 		PageFactory.initElements(driver, object);
-
 		consumer.accept(object);
 	}
 
 	public <T extends PageObject> void on(Class<T> clazz, Consumer<T> consumer) {
-		consumer.accept(PageFactory.initElements(Hooks.driver, clazz));
+		final T object = (T)newObject(clazz);
+		final WebDriver driver = Hooks.driver;
+
+		PageFactory.initElements(driver, object);
+		consumer.accept(object);
 	}
 
-	// Match the behaviour of PageFactory
-	private <T> T newObject(Class<?> clazz) {
+	private Object newObject(Class<?> clazz) {
 		try {
-			return (T)clazz.newInstance();
+			return clazz.newInstance();
 		}
 		catch( InstantiationException e ) {
 			throw new RuntimeException(e);

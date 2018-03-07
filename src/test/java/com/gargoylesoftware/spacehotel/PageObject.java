@@ -19,6 +19,10 @@ public class PageObject {
 	}
 
 	public WebElement whenPresent(final WebElement element) {
+		if(element == null) {
+			throw new NullPointerException("element is null");
+		}
+		
 		// Note that using an xpath is fairly inefficient but we couldn't
 		// see a better/faster way. We're waiting until the element finds
 		// itself and then returning.

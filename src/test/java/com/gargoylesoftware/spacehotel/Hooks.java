@@ -15,7 +15,7 @@ public class Hooks {
 	public static Wait<WebDriver> wait;
 
 	@Before
-	public void beforeScenario() {
+	public static void beforeScenario() {
 		driver = new ChromeDriver();
 		wait = new FluentWait<WebDriver>(driver)
 			.withTimeout(30, TimeUnit.SECONDS)
@@ -24,7 +24,7 @@ public class Hooks {
 	}
 
 	@After
-	public void afterScenario() {
+	public static void afterScenario() {
 		driver.close();
 	}
 }
